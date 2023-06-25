@@ -1,360 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoundCloud Player</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* CSS Styles */
-    /* Main styles */
-:root {
-  --primary-color: rgb(24, 24, 24);
-  --primary-background-color: rgb(221, 221, 221);
-  --secondary-color: rgb(75, 75, 75);
-  --secondary-background-color: rgb(255, 255, 255);
-  --highlight-color: rgb(255, 85, 1);
-  --box-shadow-color: rgb(201, 201, 201);
-  --disabled-button-color: rgb(175, 175, 175);
-  --border-radius: 1rem;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundCloud Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <style>
+      /* Main styles */
+      :root {
+        --primary-color: rgb(24, 24, 24);
+        --primary-background-color: rgb(221, 221, 221);
+        --secondary-color: rgb(75, 75, 75);
+        --secondary-background-color: rgb(255, 255, 255);
+        --highlight-color: rgb(255, 85, 1);
+        --box-shadow-color: rgb(201, 201, 201);
+        --disabled-button-color: rgb(175, 175, 175);
+        --border-radius: 1rem;
+      }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-html {
-  font-size: 62.5%;
-}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-body {
-  font-size: 1.5rem;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  color: var(--primary-color);
-  background-color: var(--primary-background-color);
-}
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      html {
+        font-size: 62.5%;
+      }
 
-/* Main Container */
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-background-color);
-  padding: 1rem;
-}
+      body {
+        font-size: 1.5rem;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        color: var(--primary-color);
+        background-color: var(--primary-background-color);
+      }
 
-/* Audio player */
-.audio-player {
-  width: 100%;
-  max-width: 100rem;
-  display: flex;
-  margin: 2rem 1rem;
-  background-color: var(--secondary-background-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0.2rem 0.2rem 1rem 0.2rem var(--box-shadow-color);
-}
+      /* Main Container */
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--primary-background-color);
+        padding: 1rem;
+      }
 
-/* Play button */
-.play-button {
-  min-width: 13rem;
-  min-height: 13rem;
+      /* Audio player */
+      .audio-player {
+        width: 100%;
+        max-width: 100rem;
+        display: flex;
+        margin: 2rem 1rem;
+        background-color: var(--secondary-background-color);
+        border-radius: var(--border-radius);
+        box-shadow: 0.2rem 0.2rem 1rem 0.2rem var(--box-shadow-color);
+      }
 
-  /* Reset default button styles */
-  border: none;
-  background-color: transparent;
-  outline: none;
-  cursor: pointer;
-}
+      /* Play button */
+      .play-button {
+        min-width: 13rem;
+        min-height: 13rem;
 
-/* Main player body, which includes title, waveform, volume and timecode */
-.player-body {
-  width: 100%;
-  padding: 1rem;
-}
+        /* Reset default button styles */
+        border: none;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+      }
 
-/* Audio track title */
-.title {
-  width: 100%;
-  font-weight: 600;
-}
+      /* Main player body, which includes title, waveform, volume and timecode */
+      .player-body {
+        width: 100%;
+        padding: 1rem;
+      }
 
-/* Main waveform */
-.waveform {
-  width: 100%;
-  min-height: 8rem;
-  padding: 0.5rem 0;
-}
+      /* Audio track title */
+      .title {
+        width: 100%;
+        font-weight: 600;
+      }
 
-/* Controls include volume mute/unmute, volume slider and timecode */
-.controls {
-  display: flex;
-  justify-content: space-between;
-}
+      /* Main waveform */
+      .waveform {
+        width: 100%;
+        min-height: 8rem;
+        padding: 0.5rem 0;
+      }
 
-/* Timecode */
-.timecode {
-  color: var(--secondary-color);
-}
+      /* Controls include volume mute/unmute, volume slider and timecode */
+      .controls {
+        display: flex;
+        justify-content: space-between;
+      }
 
-/* Volume */
-.volume {
-  display: flex;
-  align-items: center;
-}
-.volume-icon {
-  cursor: pointer;
-}
-.volume-slider {
-  margin: 0 1rem;
-  cursor: pointer;
+      /* Timecode */
+      .timecode {
+        color: var(--secondary-color);
+      }
 
-  width: 100%;
-  outline: none;
-  -webkit-appearance: none;
-  background: transparent;
-}
+      /* Volume */
+      .volume {
+        display: flex;
+        align-items: center;
+      }
+      .volume-icon {
+        cursor: pointer;
+      }
+      .volume-slider {
+        margin: 0 1rem;
+        cursor: pointer;
 
-/* Custom volume slider */
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 1.5rem;
-  width: 1.5rem;
-  border: none;
-  border-radius: 50%;
-  background: var(--highlight-color);
+        width: 100%;
+        outline: none;
+        -webkit-appearance: none;
+        background: transparent;
+      }
 
-  margin-top: -0.6rem;
-}
-.volume-slider::-moz-range-thumb {
-  -webkit-appearance: none;
-  height: 1.5rem;
-  width: 1.5rem;
-  border: none;
-  border-radius: 50%;
-  background: var(--highlight-color);
-}
-.volume-slider::-ms-thumb {
-  -webkit-appearance: none;
-  height: 1.5rem;
-  width: 1.5rem;
-  border: none;
-  border-radius: 50%;
-  background: var(--highlight-color);
-}
-.volume-slider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 0.25rem;
-  background-color: var(--secondary-color);
-  border-radius: var(--border-radius);
-}
-.volume-slider::-ms-track {
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
+      /* Custom volume slider */
+      .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 1.5rem;
+        width: 1.5rem;
+        border: none;
+        border-radius: 50%;
+        background: var(--highlight-color);
 
-  width: 100%;
-  height: 0.25rem;
-  background-color: var(--secondary-color);
-  border-radius: var(--border-radius);
-}
+        margin-top: -0.6rem;
+      }
+      .volume-slider::-moz-range-thumb {
+        -webkit-appearance: none;
+        height: 1.5rem;
+        width: 1.5rem;
+        border: none;
+        border-radius: 50%;
+        background: var(--highlight-color);
+      }
+      .volume-slider::-ms-thumb {
+        -webkit-appearance: none;
+        height: 1.5rem;
+        width: 1.5rem;
+        border: none;
+        border-radius: 50%;
+        background: var(--highlight-color);
+      }
+      .volume-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 0.25rem;
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+      }
+      .volume-slider::-ms-track {
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
 
-/* Muted/disabled volume slider */
-.volume-slider[disabled] {
-  cursor: not-allowed;
-}
-.volume-slider[disabled]::-webkit-slider-thumb {
-  background-color: var(--disabled-button-color);
-}
-.volume-slider[disabled]::-moz-range-thumb {
-  background-color: var(--disabled-button-color);
-}
-.volume-slider[disabled]::-ms-thumb {
-  background-color: var(--disabled-button-color);
-}
-.volume-slider[disabled]::-webkit-slider-runnable-track {
-  background-color: var(--disabled-button-color);
-}
-.volume-slider[disabled]::-ms-track {
-  background-color: var(--disabled-button-color);
-}
+        width: 100%;
+        height: 0.25rem;
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+      }
 
-    /* Paste the provided CSS code here */
-  </style>
-</head>
-<body>
-  <main class="container">
-    <h1>SoundCloud Player</h1>
-    <div class="audio-player">
-      <button id="playButton" class="play-button">
-        <img id="playButtonIcon" class="play-button-icon" src="assets/icons/play.svg" alt="Play Button" />
-      </button>
-      <div class="player-body">
-        <p class="title">Artist - Track Title</p>
-        <div id="waveform" class="waveform"></div>
-        <div class="controls">
-          <div class="volume">
-            <img id="volumeIcon" class="volume-icon" src="assets/icons/volume.svg" alt="Volume" />
-            <input id="volumeSlider" class="volume-slider" type="range" name="volume-slider" min="0" max="100" value="50" />
-          </div>
-          <div class="timecode">
-            <span id="currentTime">00:00:00</span>
-            <span>/</span>
-            <span id="totalDuration">00:00:00</span>
+      /* Muted/disabled volume slider */
+      .volume-slider[disabled] {
+        cursor: not-allowed;
+      }
+      .volume-slider[disabled]::-webkit-slider-thumb {
+        background-color: var(--disabled-button-color);
+      }
+      .volume-slider[disabled]::-moz-range-thumb {
+        background-color: var(--disabled-button-color);
+      }
+      .volume-slider[disabled]::-ms-thumb {
+        background-color: var(--disabled-button-color);
+      }
+      .volume-slider[disabled]::-webkit-slider-runnable-track {
+        background-color: var(--disabled-button-color);
+      }
+      .volume-slider[disabled]::-ms-track {
+        background-color: var(--disabled-button-color);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>SoundCloud Player</h1>
+
+      <div class="audio-player">
+        <button id="playButton" class="play-button">
+            <div id="playButtonIcon"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Play"><path d="M6 4v16"/><path d="M20 12L6 20"/><path d="M20 12L6 4"/></svg>;
+            </div>
+            </button>
+      </div>
+        <div class="player-body">
+          <p class="title">Artist - Track Title</p>
+          <div id="waveform" class="waveform"></div>
+
+          <div class="controls">
+            <div class="volume">
+                <div id="volumeIcon" class="volume-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(75, 75, 75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="SoundOn"><path d="M16 8.5c1.333 1.778 1.333 5.222 0 7"/><path d="M19 5c3.988 3.808 4.012 10.217 0 14"/><path d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 00.707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 006.578 16H3c-.552 0-1-.466-1-1.041z"/></svg>
+                </div>
+              <input
+                id="volumeSlider"
+                class="volume-slider"
+                type="range"
+                name="volume-slider"
+                min="0"
+                max="100"
+                value="50"
+              />
+            </div>
+
+            <div class="timecode">
+              <span id="currentTime">00:00:00</span>
+              <span>/</span>
+              <span id="totalDuration">00:00:00</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <script src="https://unpkg.com/wavesurfer.js@5.0.1/dist/wavesurfer.js"></script>
-  <script>
-    // JavaScript Code
-    const playButton = document.querySelector('#playButton');
-const playButtonIcon = document.querySelector('#playButtonIcon');
-const waveform = document.querySelector('#waveform');
-const volumeIcon = document.querySelector('#volumeIcon');
-const volumeSlider = document.querySelector('#volumeSlider');
-const currentTime = document.querySelector('#currentTime');
-const totalDuration = document.querySelector('#totalDuration');
+    </main>
+    <script src="https://unpkg.com/wavesurfer.js@5.0.1/dist/wavesurfer.js"></script>
+    <script>
+      const playButton = document.querySelector('#playButton');
+      const playButtonIcon = document.querySelector('#playButtonIcon');
+      const waveform = document.querySelector('#waveform');
+      const volumeIcon = document.querySelector('#volumeIcon');
+      const volumeSlider = document.querySelector('#volumeSlider');
+      const currentTime = document.querySelector('#currentTime');
+      const totalDuration = document.querySelector('#totalDuration');
 
-// --------------------------------------------------------- //
+      // --------------------------------------------------------- //
 
-/**
- * Initialize Wavesurfer
- * @returns a new Wavesurfer instance
- */
-const initializeWavesurfer = () => {
-  return WaveSurfer.create({
-    container: '#waveform',
-    responsive: true,
-    height: 80,
-    waveColor: '#ff5501',
-    progressColor: '#d44700',
-  });
-};
+      /**
+       * Initialize Wavesurfer
+       * @returns a new Wavesurfer instance
+       */
+      const initializeWavesurfer = () => {
+        return WaveSurfer.create({
+          container: '#waveform',
+          responsive: true,
+          height: 80,
+          waveColor: '#ff5501',
+          progressColor: '#d44700',
+        });
+      };
 
-// --------------------------------------------------------- //
+      // --------------------------------------------------------- //
 
-// Functions
+      // Functions
 
-/**
- * Toggle play button
- */
-const togglePlay = () => {
-  wavesurfer.playPause();
+      /**
+       * Toggle play button
+       */
+      const togglePlay = () => {
+        wavesurfer.playPause();
 
-  const isPlaying = wavesurfer.isPlaying();
+        const isPlaying = wavesurfer.isPlaying();
+        const playButtonIcon = document.getElementById("playButtonIcon");
 
-  if (isPlaying) {
-    playButtonIcon.src = 'assets/icons/pause.svg';
-  } else {
-    playButtonIcon.src = 'assets/icons/play.svg';
-  }
-};
+        if (isPlaying) {
+          playButtonIcon.innerHTML = <svg xmlns= "http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Pause"><path d="M7 5v14M17 5v14"/></svg>;
+        } else {
+          playButtonIcon.innerHTML = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Play"><path d="M6 4v16"/><path d="M20 12L6 20"/><path d="M20 12L6 4"/></svg>;
+        }
+      };
 
-/**
- * Handles changing the volume slider input
- * @param {event} e
- */
-const handleVolumeChange = e => {
-  // Set volume as input value divided by 100
-  // NB: Wavesurfer only excepts volume value between 0 - 1
-  const volume = e.target.value / 100;
+      /**
+       * Handles changing the volume slider input
+       * @param {event} e
+       */
+      const handleVolumeChange = e => {
+        // Set volume as input value divided by 100
+        // NB: Wavesurfer only excepts volume value between 0 - 1
+        const volume = e.target.value / 100;
 
-  wavesurfer.setVolume(volume);
+        wavesurfer.setVolume(volume);
 
-  // Save the value to local storage so it persists between page reloads
-  localStorage.setItem('audio-player-volume', volume);
-};
+        // Save the value to local storage so it persists between page reloads
+        localStorage.setItem('audio-player-volume', volume);
+      };
 
-/**
- * Retrieves the volume value from localstorage and sets the volume slider
- */
-const setVolumeFromLocalStorage = () => {
-  // Retrieves the volume from localstorage, or falls back to default value of 50
-  const volume = localStorage.getItem('audio-player-volume') * 100 || 50;
+      /**
+       * Retrieves the volume value from localstorage and sets the volume slider
+       */
+      const setVolumeFromLocalStorage = () => {
+        // Retrieves the volume from localstorage, or falls back to default value of 50
+        const volume = localStorage.getItem('audio-player-volume') * 100 || 50;
 
-  volumeSlider.value = volume;
-};
+        volumeSlider.value = volume;
+      };
 
-/**
- * Formats time as HH:MM:SS
- * @param {number} seconds
- * @returns time as HH:MM:SS
- */
-const formatTimecode = seconds => {
-  return new Date(seconds * 1000).toISOString().substr(11, 8);
-};
+      /**
+       * Formats time as HH:MM:SS
+       * @param {number} seconds
+       * @returns time as HH:MM:SS
+       */
+      const formatTimecode = seconds => {
+        return new Date(seconds * 1000).toISOString().substr(11, 8);
+      };
 
-/**
- * Toggles mute/unmute of the wavesurfer volume
- * Also changes the volume icon and disables the volume slider
- */
-const toggleMute = () => {
-  wavesurfer.toggleMute();
+      /**
+       * Toggles mute/unmute of the wavesurfer volume
+       * Also changes the volume icon and disables the volume slider
+       */
+      const toggleMute = () => {
+        wavesurfer.toggleMute();
 
-  const isMuted = wavesurfer.getMute();
+        const isMuted = wavesurfer.getMute();
 
-  if (isMuted) {
-    volumeIcon.src = 'assets/icons/mute.svg';
-    volumeSlider.disabled = true;
-  } else {
-    volumeSlider.disabled = false;
-    volumeIcon.src = 'assets/icons/volume.svg';
-  }
-};
+        if (isMuted) {
+          volumeIcon.innerHTML = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(75, 75, 75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="SoundOff"><path d="M22 15l-6-6m6 0l-6 6"/><path d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 00.707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 006.578 16H3c-.552 0-1-.466-1-1.041z"/></svg>;
+          volumeSlider.disabled = true;
+        } else {
+          volumeSlider.disabled = false;
+          volumeIcon.innerHTML = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(75, 75, 75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="SoundOn"><path d="M16 8.5c1.333 1.778 1.333 5.222 0 7"/><path d="M19 5c3.988 3.808 4.012 10.217 0 14"/><path d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 00.707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 006.578 16H3c-.552 0-1-.466-1-1.041z"/></svg>;
+        }
+      };
 
-// --------------------------------------------------------- //
+      // --------------------------------------------------------- //
 
-// Create a new instance and load the wavesurfer
-const wavesurfer = initializeWavesurfer();
-wavesurfer.load('assets/audio/sample.mp3');
+      // Create a new instance and load the wavesurfer
+      const wavesurfer = initializeWavesurfer();
+      wavesurfer.load('assets/audio/sample.mp3');
 
-// --------------------------------------------------------- //
+      // --------------------------------------------------------- //
 
-// Javascript Event listeners
-window.addEventListener('load', setVolumeFromLocalStorage);
+      // Javascript Event listeners
+      window.addEventListener('load', setVolumeFromLocalStorage);
 
-playButton.addEventListener('click', togglePlay);
-volumeIcon.addEventListener('click', toggleMute);
-volumeSlider.addEventListener('input', handleVolumeChange);
+      playButton.addEventListener('click', togglePlay);
+      volumeIcon.addEventListener('click', toggleMute);
+      volumeSlider.addEventListener('input', handleVolumeChange);
 
-// --------------------------------------------------------- //
+      // --------------------------------------------------------- //
 
-// Wavesurfer event listeners
-wavesurfer.on('ready', () => {
-  // Set wavesurfer volume
-  wavesurfer.setVolume(volumeSlider.value / 100);
+      // Wavesurfer event listeners
+      wavesurfer.on('ready', () => {
+        // Set wavesurfer volume
+        wavesurfer.setVolume(volumeSlider.value / 100);
 
-  // Set audio track total duration
-  const duration = wavesurfer.getDuration();
-  totalDuration.innerHTML = formatTimecode(duration);
-});
+        // Set audio track total duration
+        const duration = wavesurfer.getDuration();
+        totalDuration.innerHTML = formatTimecode(duration);
+      });
 
-// Sets the timecode current timestamp as audio plays
-wavesurfer.on('audioprocess', () => {
-  const time = wavesurfer.getCurrentTime();
-  currentTime.innerHTML = formatTimecode(time);
-});
+      wavesurfer.on('audioprocess', () => {
+        // Update current time
+        const time = wavesurfer.getCurrentTime();
+        currentTime.innerHTML = formatTimecode(time);
+      });
 
-// Resets the play button icon after audio ends
-wavesurfer.on('finish', () => {
-  playButtonIcon.src = 'assets/icons/play.svg';
-});
-
-    // Paste the provided JavaScript code here
-  </script>
-  <script src="script.js"></script>
-</body>
+      wavesurfer.on('finish', () => {
+        // Reset play button icon
+        playButtonIcon.innerHTML = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Play"><path d="M6 4v16"/><path d="M20 12L6 20"/><path d="M20 12L6 4"/></svg>;
+      });
+    </script>
+  </body>
 </html>

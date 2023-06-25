@@ -1,0 +1,77 @@
+]<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React App</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- Add the React and ReactDOM libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.development.js"></script>
+
+  <!-- Add the WaveSurfer library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.3.0/wavesurfer.min.js"></script>
+
+  <!-- Add your JavaScript code here -->
+  <script>
+    // Your JavaScript code using React, Component, and WaveSurfer goes here
+    // Make sure to include the necessary imports and define your components
+
+    // Import React, Component, and WaveSurfer from the provided libraries
+    const { React, Component } = window;
+    const { WaveSurfer } = window;
+
+    // Define your Waveform component
+    class Waveform extends Component {
+      state = {
+        playing: false,
+      };
+
+      componentDidMount() {
+        const track = document.querySelector('#track');
+
+        this.waveform = WaveSurfer.create({
+          barWidth: 3,
+          cursorWidth: 1,
+          container: '#waveform',
+          backend: 'WebAudio',
+          height: 80,
+          progressColor: '#2D5BFF',
+          responsive: true,
+          waveColor: '#EFEFEF',
+          cursorColor: 'transparent',
+        });
+
+        this.waveform.load(track);
+      }
+
+      handlePlay = () => {
+        this.setState({ playing: !this.state.playing });
+        this.waveform.playPause();
+      };
+
+      render() {
+        const url = 'https://www.mfiles.co.uk/mp3-downloads/gs-cd-track2.mp3';
+
+        return (
+          React.createElement("div", { id: "waveform" },
+            React.createElement("button", { onClick: this.handlePlay },
+              !this.state.playing ? 'Play' : 'Pause'
+            ),
+            React.createElement("audio", { id: "track", src: url })
+          )
+        );
+      }
+    }
+
+    // Render the component to the "root" element
+    ReactDOM.render(React.createElement(Waveform), document.getElementById("root"));
+  </script>
+</body>
+
+</html>
